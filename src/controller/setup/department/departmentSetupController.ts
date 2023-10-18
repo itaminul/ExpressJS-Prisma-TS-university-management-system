@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-
 exports.getAll = async(req: Request, res: Response) => {
   try {
     res.send({ success: "true", "message": "Show successfully"})
@@ -7,4 +6,4 @@ exports.getAll = async(req: Request, res: Response) => {
   } catch (error) {
     return 'error';
   }
-}
+};
