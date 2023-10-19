@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-exports.getAll = async(req: Request, res: Response) => {
-  try {
-    res.send({ success: "true", "message": "Show successfully"})
-    
-  } catch (error) {
-    return 'error';
+import { DepartmentSetupService } from "../../../services/setup/departmentSetupService";
+const departmentSetupService = new  DepartmentSetupService();
+export class DepartmentSetupController {
+  getDepartmentData = async(req: Request, res: Response): Promise<void> => {
+    const results = await departmentSetupService.getDepartmentSetupData();
+    res.json({ message: results});
   }
-};
+
+}

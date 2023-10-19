@@ -1,5 +1,6 @@
 import express from 'express';
+import { DepartmentSetupController } from '../controller/setup/department/departmentSetupController';
 const router = express.Router();
-const { getAll } = require('../controller/setup/department/departmentSetupController')
-router.route('/').get(getAll);
-module.exports = router;
+const departmentSetupController = new DepartmentSetupController();
+router.route('/').get(departmentSetupController.getDepartmentData);
+export default router;
