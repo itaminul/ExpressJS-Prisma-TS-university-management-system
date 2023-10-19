@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
