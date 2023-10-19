@@ -6,7 +6,11 @@
   "scripts": {
     "start": "ts-node ./src/app.ts",
     "build": "npx prisma generate && npx tsc",
-    "dev": "nodemon ./src/app.ts"
+    "dev": "nodemon ./src/app.ts",
+    "seed": "prisma db push && ts-node prisma/seed/index.ts",
+    "migrate:dev": "prisma generate && prisma migrate dev",
+    "migrate:prod": "prisma migrate deploy",
+    "migrate:resolve": "prisma migrate resolve --applied"
   },
   "keywords": [],
   "author": "",
