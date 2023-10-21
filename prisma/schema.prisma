@@ -14,4 +14,20 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+  mobileNumber String?
+  emailAddress String?
+  deptId       Int?
+  desigId      Int?
+  roleId       Int?
+  orgId        Int?
+  companyId    Int?
+  activeStatus Boolean   @default(true)
+  createdDate  String?
+  createdTime  String?
+  createdBy    Int?
+  createdAt    DateTime  @default(now())
+  updatedDate  String?
+  updatedTime  String?
+  updatedAt    DateTime?
+
 }
