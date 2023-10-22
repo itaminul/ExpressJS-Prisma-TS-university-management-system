@@ -31,3 +31,20 @@ model User {
   updatedAt    DateTime?
 
 }
+
+model Department {
+  id    Int     @id @default(autoincrement())
+  departmentName String 
+  departmentDescription  String?
+  orgId        Int?
+  companyId    Int?
+  activeStatus Boolean   @default(true)
+  createdDate  String?
+  createdTime  String?
+  createdBy    Int?
+  createdAt    DateTime  @default(now())
+  updatedDate  String?
+  updatedTime  String?
+  updatedAt    DateTime?
+
+}
