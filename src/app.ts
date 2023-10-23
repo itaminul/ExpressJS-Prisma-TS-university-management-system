@@ -1,10 +1,15 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
+import cors from 'cors';
 import dotenv  from "dotenv";
-dotenv.config()
+import cookieParser from "cookie-parser";
 const app = express();
+const port = process.env.SERVER_PORT || 4001;
+app.use(cors());
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+dotenv.config()
 app.get("/check", (_req: Request, res: Response) => {
   const age: number = 39;
   res.json({ message: "Start the projects", age });
@@ -12,9 +17,9 @@ app.get("/check", (_req: Request, res: Response) => {
 
 import router from "../src/routes/indexRoute";
 app.use("/api", router);
-const PORT = process.env.PORT || 4001;
-app.listen("4001", (): void => {
-  console.log(`server running ${PORT}`);
+const hostname = process.env.HOSTNAME;
+app.listen(port, () => {
+  return console.log(`Server running at http://${hostname}:${port}`);
 });
 
 
