@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
-import cors from 'cors';
+import ErrorHandler from '../src/middlware/ErrorHandler'
 import dotenv  from "dotenv";
 import cookieParser from "cookie-parser";
 const app = express();
@@ -17,9 +17,12 @@ app.get("/check", (_req: Request, res: Response) => {
 
 import router from "../src/routes/indexRoute";
 app.use("/api", router);
+const PORT = process.env.PORT || 4001;
+app.use(ErrorHandler);
 const hostname = process.env.HOSTNAME;
 app.listen(port, () => {
   return console.log(`Server running at http://${hostname}:${port}`);
+
 });
 
 

@@ -1,29 +1,35 @@
 import { Request, Response } from "express";
 import { DepartmentSetupService } from "../../../services/setup/departmentSetupService";
+import { sendErrorResponse, sendSuccessResponse } from "../../../middlware/resposeMiddleware";
 const departmentSetupService = new  DepartmentSetupService();
 export class DepartmentSetupController {
   getAll = async(req: Request, res: Response): Promise<void> => {
     try {
       const results = await departmentSetupService.getAll();
-      res.json({ message: results});
+      const message = 'Request successful';
+      sendSuccessResponse(200, results, message, res);
     } catch (error) {
-      res.json({ message: error});      
+       // Handle errors if necessary
+    const errorMessage = 'An error occurred';
+    sendErrorResponse(500, errorMessage, res);
     }
   }
 
   create = async(req: Request, res: Response): Promise<void> => {
     try {
       const results = await departmentSetupService.create();
-      res.json({ message: results});
+      const message = 'Created successful';
+      sendSuccessResponse(200, results, message, res);
     } catch (error) {
       res.json({ message: error});
     }
   }
 
   update = async(req: Request, res: Response): Promise<void> => {
-    try {
+    try {     
       const results = await departmentSetupService.update();
-      res.json({ message: results});
+      const message = 'Updated successful';
+      sendSuccessResponse(200, results, message, res);
     } catch (error) {
       res.json({ message: error});
     }
