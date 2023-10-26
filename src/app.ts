@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
+import ErrorHandler from '../src/middlware/ErrorHandler'
 import dotenv  from "dotenv";
 dotenv.config()
 const app = express();
@@ -13,6 +14,8 @@ app.get("/check", (_req: Request, res: Response) => {
 import router from "../src/routes/indexRoute";
 app.use("/api", router);
 const PORT = process.env.PORT || 4001;
+app.use(ErrorHandler);
+
 app.listen("4001", (): void => {
   console.log(`server running ${PORT}`);
 });
