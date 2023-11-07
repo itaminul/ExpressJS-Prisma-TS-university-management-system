@@ -46,5 +46,415 @@ model Department {
   updatedDate  String?
   updatedTime  String?
   updatedAt    DateTime?
+  employeeInfo EmployeeInfo[]
 
+}
+model Organization {
+  id             Int       @id @default(autoincrement())
+  orgName        String
+  orgDescription String?
+  serialNo       Int?
+  activeStatus   Boolean   @default(true)
+  createdDate    String?
+  createdTime    String?
+  createdBy      Int?
+  createdAt      DateTime  @default(now())
+  updatedDate    String?
+  updatedTime    String?
+  updatedAt      DateTime?
+  updatedBy      Int?
+}
+
+
+
+model EmployeeInfo {
+  id                       Int                        @id @default(autoincrement())
+  firstName                String?
+  middleName               String
+  lastName                 String
+  fullName                 String
+  phone                    String?
+  mobileOne                String?
+  mobileTwo                String?
+  emergencyMobile          String?
+  officeEmail              String?
+  personalEmail            String?
+  empImage                 String?
+  empSignature             String?
+  nationalId               Int?
+  department               Department?                @relation(fields: [departmentId], references: [id])
+  departmentId             Int?
+  designation              Designation?               @relation(fields: [designationId], references: [id])
+  designationId            Int?
+  employeeType             EmployeeType?              @relation(fields: [empType], references: [id])
+  empType                  Int? // permanent, trainee, casual etc
+  leaveApplicableStatus    Boolean?
+  dateOfBirts              String?
+  gender                   Gender?                    @relation(fields: [genderId], references: [id])
+  genderId                 Int?
+  religion                 Religion?                  @relation(fields: [religionId], references: [id])
+  religionId               Int?
+  bloodgroup               Bloodgroup?                @relation(fields: [bloodGroupId], references: [id])
+  bloodGroupId             Int?
+  maritialStatus           Boolean?
+  spousName                String?
+  spouseProfe              Int? //spouse profession
+  fatherOrHusbandName      String?
+  fatherOrHusbandProfe     Int?
+  fatherOrHusbandMobile    String?
+  motherName               String?
+  motherProfe              Int?
+  motherMobile             String?
+  activeStatus             Boolean                    @default(true)
+  createdDate              String?
+  createdTime              String?
+  createdBy                Int?
+  createdAt                DateTime                   @default(now())
+  updatedDate              String?
+  updatedTime              String?
+  updatedAt                DateTime?
+  updatedBy                Int?
+  employeeEdu              EmployeeEdu[]
+  leaveParent              LeaveParent[]
+  movement                 Movement[]
+  attendance               Attendance[]
+  employeePresentAddress   EmployeePresentAddress[]
+  employeePermanentAddress EmployeePermanentAddress[]
+}
+
+model EmployeePresentAddress {
+  id                    Int           @id @default(autoincrement())
+  employeeInfo          EmployeeInfo? @relation(fields: [empId], references: [id])
+  empId                 Int? //present divisition
+  //start present address information
+  division              Division?     @relation(fields: [presentDiviId], references: [id])
+  presentDiviId         Int? //present divisition
+  district              District?     @relation(fields: [presentDistId], references: [id])
+  presentDistId         Int? //present district
+  thana                 Thana?        @relation(fields: [presentPSId], references: [id])
+  presentPSId           Int? //present police station
+  presentCityCor        Int? // present city corporation
+  presentWord           Int? //present word
+  presentWordNo         Int? //present word no
+  presentVillRoad       Int? //present village or road
+  presentBasHolding     Int?
+  presentPostOffice     Int?
+  presentPostOfficeCode Int?
+  activeStatus          Boolean       @default(true)
+  createdDate           String?
+  createdTime           String?
+  createdBy             Int?
+  createdAt             DateTime      @default(now())
+  updatedDate           String?
+  updatedTime           String?
+  updatedAt             DateTime?
+  updatedBy             Int?
+}
+
+model EmployeePermanentAddress {
+  id                Int           @id @default(autoincrement())
+  employeeInfo      EmployeeInfo? @relation(fields: [empId], references: [id])
+  empId             Int? //present divisition
+  //start permanent address information
+  division          Division?     @relation(fields: [perDiviId], references: [id])
+  perDiviId         Int?
+  district          District?     @relation(fields: [pertDisId], references: [id])
+  pertDisId         Int?
+  thana             Thana?        @relation(fields: [pertPSId], references: [id])
+  pertPSId          Int? //permanent police station
+  perCityCor        Int? //permanent city corporation
+  perWord           Int? //permenaent word
+  perWordNo         Int? //permanent word no
+  perVillRoad       Int? //permanent village road
+  perBasHolding     Int? //permanent basha holdings
+  perPostOffice     Int?
+  perPostOfficeCode Int?
+  activeStatus      Boolean       @default(true)
+  createdDate       String?
+  createdTime       String?
+  createdBy         Int?
+  createdAt         DateTime      @default(now())
+  updatedDate       String?
+  updatedTime       String?
+  updatedAt         DateTime?
+  updatedBy         Int?
+}
+
+model EmployeeEdu {
+  id               Int           @id @default(autoincrement())
+  empId            Int?
+  degreeId         Int?
+  boardId          Int?
+  resultType       Int?
+  resultGPA        String?
+  resultDivision   String?
+  certificateImage String?
+  activeStatus     Boolean       @default(true)
+  createdDate      String?
+  createdTime      String?
+  createdBy        Int?
+  createdAt        DateTime      @default(now())
+  updatedDate      String?
+  updatedTime      String?
+  updatedAt        DateTime?
+  updatedBy        Int?
+  employeeInfo     EmployeeInfo? @relation(fields: [empId], references: [id])
+}
+
+model EmployeeType {
+  id           Int            @id @default(autoincrement())
+  empTypeName  String
+  empTypeDes   String?
+  orgId        Int?
+  serialNo     Int?
+  activeStatus Boolean        @default(true)
+  createdDate  String?
+  createdTime  String?
+  createdBy    Int?
+  createdAt    DateTime       @default(now())
+  updatedDate  String?
+  updatedTime  String?
+  updatedAt    DateTime?
+  updatedBy    Int?
+  employeeInfo EmployeeInfo[]
+}
+
+
+model Gender {
+  id           Int            @id @default(autoincrement())
+  genderName   String
+  genderDes    String?
+  orgId        Int?
+  serialNo     Int?
+  activeStatus Boolean        @default(true)
+  createdDate  String?
+  createdTime  String?
+  createdBy    Int?
+  createdAt    DateTime       @default(now())
+  updatedDate  String?
+  updatedTime  String?
+  updatedAt    DateTime?
+  updatedBy    Int?
+  employeeInfo EmployeeInfo[]
+}
+
+model Religion {
+  id           Int            @id @default(autoincrement())
+  religionName String
+  religionDes  String?
+  orgId        Int?
+  serialNo     Int?
+  activeStatus Boolean        @default(true)
+  createdDate  String?
+  createdTime  String?
+  createdBy    Int?
+  createdAt    DateTime       @default(now())
+  updatedDate  String?
+  updatedTime  String?
+  updatedAt    DateTime?
+  updatedBy    Int?
+  employeeInfo EmployeeInfo[]
+}
+
+model Bloodgroup {
+  id             Int            @id @default(autoincrement())
+  bloodGroupName String
+  bloodGroupDes  String?
+  orgId          Int?
+  serialNo       Int?
+  activeStatus   Boolean        @default(true)
+  createdDate    String?
+  createdTime    String?
+  createdBy      Int?
+  createdAt      DateTime       @default(now())
+  updatedDate    String?
+  updatedTime    String?
+  updatedAt      DateTime?
+  updatedBy      Int?
+  employeeInfo   EmployeeInfo[]
+}
+
+model Division {
+  id                       Int                        @id @default(autoincrement())
+  divisionName             String
+  divisionDes              String?
+  orgId                    Int?
+  serialNo                 Int?
+  activeStatus             Boolean                    @default(true)
+  createdDate              String?
+  createdTime              String?
+  createdBy                Int?
+  createdAt                DateTime                   @default(now())
+  updatedDate              String?
+  updatedTime              String?
+  updatedAt                DateTime?
+  updatedBy                Int?
+  employeePermanentAddress EmployeePermanentAddress[]
+  employeePresentAddress   EmployeePresentAddress[]
+}
+
+model District {
+  id                       Int                        @id @default(autoincrement())
+  districtName             String
+  districtDes              String?
+  orgId                    Int?
+  serialNo                 Int?
+  activeStatus             Boolean                    @default(true)
+  createdDate              String?
+  createdTime              String?
+  createdBy                Int?
+  createdAt                DateTime                   @default(now())
+  updatedDate              String?
+  updatedTime              String?
+  updatedAt                DateTime?
+  updatedBy                Int?
+  employeePermanentAddress EmployeePermanentAddress[]
+  employeePresentAddress   EmployeePresentAddress[]
+}
+
+model Thana {
+  id                       Int                        @id @default(autoincrement())
+  thanaName                String
+  thanaDes                 String?
+  orgId                    Int?
+  serialNo                 Int?
+  activeStatus             Boolean                    @default(true)
+  createdDate              String?
+  createdTime              String?
+  createdBy                Int?
+  createdAt                DateTime                   @default(now())
+  updatedDate              String?
+  updatedTime              String?
+  updatedAt                DateTime?
+  updatedBy                Int?
+  employeePermanentAddress EmployeePermanentAddress[]
+  employeePresentAddress   EmployeePresentAddress[]
+}
+
+model Designation {
+  id              Int            @id @default(autoincrement())
+  designationName String
+  designationDes  String?
+  orgId           Int?
+  serialNo        Int?
+  activeStatus    Boolean        @default(true)
+  createdDate     String?
+  createdTime     String?
+  createdBy       Int?
+  createdAt       DateTime       @default(now())
+  updatedDate     String?
+  updatedTime     String?
+  updatedAt       DateTime?
+  updatedBy       Int?
+  employeeInfo    EmployeeInfo[]
+}
+
+
+
+model LeaveParent {
+  id               Int           @id @default(autoincrement())
+  empId            Int?
+  leaveStatus      Int?
+  leaveReasons     String?
+  leaveDes         String?
+  attachments      String?
+  leaveLocation    String?
+  emergencyContact String?
+  leaveFromDate    DateTime?     @db.Date
+  leaveToDate      DateTime?     @db.Date
+  orgId            Int?
+  activeStatus     Boolean       @default(true)
+  createdDate      String?
+  createdTime      String?
+  createdBy        Int?
+  createdAt        DateTime      @default(now())
+  updatedDate      String?
+  updatedTime      String?
+  updatedAt        DateTime?
+  updatedBy        Int?
+  leaveChild       LeaveChild[]
+  employeeInfo     EmployeeInfo? @relation(fields: [empId], references: [id])
+}
+
+model LeaveChild {
+  id            Int          @id @default(autoincrement())
+  leaveId       Int?
+  leaveDate     DateTime?    @db.Date
+  leaveFromTime String?
+  leaveToTime   String?
+  activeStatus  Boolean      @default(true)
+  createdDate   String?
+  createdTime   String?
+  createdBy     Int?
+  createdAt     DateTime     @default(now())
+  updatedDate   String?
+  updatedTime   String?
+  updatedAt     DateTime?
+  updatedBy     Int?
+  leaveParent   LeaveParent? @relation(fields: [leaveId], references: [id])
+}
+
+model Movement {
+  id               Int           @id @default(autoincrement())
+  empId            Int?
+  clientId         Int?
+  projectId        Int?
+  movementStatus   Int?
+  movementReasons  String?
+  movementDes      String?
+  movementFromDate String?
+  movementToDate   String?
+  movementFromTime String?
+  movementToTime   String?
+  emergencyContact String?
+  orgId            Int?
+  activeStatus     Boolean       @default(true)
+  createdDate      String?
+  createdTime      String?
+  createdBy        Int?
+  createdAt        DateTime      @default(now())
+  updatedDate      String?
+  updatedTime      String?
+  updatedAt        DateTime?
+  updatedBy        Int?
+  employeeInfo     EmployeeInfo? @relation(fields: [empId], references: [id])
+}
+
+model Attendance {
+  id             Int           @id @default(autoincrement())
+  empId          Int?
+  attendanceDate String?
+  logInTime      String?
+  logOutTime     String?
+  biometricId    Int?
+  orgId          Int?
+  activeStatus   Boolean       @default(true)
+  createdDate    String?
+  createdTime    String?
+  createdBy      Int?
+  createdAt      DateTime      @default(now())
+  updatedDate    String?
+  updatedTime    String?
+  updatedAt      DateTime?
+  updatedBy      Int?
+  machineId      Int?
+  shiftId        Int?
+  employeeInfo   EmployeeInfo? @relation(fields: [empId], references: [id])
+}
+
+model Holidays {
+  id                Int       @id @default(autoincrement())
+  holidayTitle      String?
+  hlidayDescription String?
+  date              String?
+  orgId             Int?
+  activeStatus      Boolean   @default(true)
+  createdDate       String?
+  createdTime       String?
+  createdBy         Int?
+  createdAt         DateTime  @default(now())
+  updatedDate       String?
+  updatedTime       String?
+  updatedAt         DateTime?
+  updatedBy         Int?
 }
