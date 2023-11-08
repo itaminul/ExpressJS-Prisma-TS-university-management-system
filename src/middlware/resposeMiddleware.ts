@@ -4,30 +4,24 @@ import { Response } from 'express';
 interface CustomResponse {
   success: boolean;
   status: number;
-  message: string;
-  data?: any;
-  res: string;
+  results?: any;
 }
 
-// Middleware function for sending success responses
-export function sendSuccessResponse(statusCode: number, data: unknown, message: string, res: Response) {
+
+export function sendSuccessResponse(statusCode: number, data: unknown, res: Response) {
   const response: CustomResponse = {
     success: true,
     status: statusCode,
-    message: message,
-    data: data,
-    res: ''
+    results: data
   };
   res.status(statusCode).json(response);
 }
 
 // Middleware function for sending error responses
-export function sendErrorResponse(statusCode: number, message: string, res: Response) {
+export function sendErrorResponse(statusCode: number,res: Response) {
   const response: CustomResponse = {
     success: false,
-    status: statusCode,
-    message: message,
-    res: ''
+    status: statusCode
   };
   res.status(statusCode).json(response);
 }
