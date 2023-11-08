@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
 export class DepartmentSetupService {
@@ -18,12 +19,45 @@ export class DepartmentSetupService {
     }
   }
 
-  create(): string {
-    return 'create';
+  create = async(req: Request, res: Response) => {
+    try {
+      const { departmentName, departmentDescription, orgId}= req.body;
+      const results = await prisma.department.create({
+        data: {
+          departmentName,
+          departmentDescription,
+          orgId
+        }
+      })
+      return results;
+    } catch (error) {
+      return error;      
+    } finally {
+      await prisma.$disconnect;
+    }
   }
 
-  update(): string {
-    return 'update';
+  update = async(req: Request, res: Response, id: number) => {
+    try {
+      const { departmentName, departmentDescription, orgId, activeStatus}= req.body;
+      const results = await prisma.department.update({
+        where: {
+          id: Number(id)
+        },
+        data: {
+          departmentName,
+          departmentDescription,
+          orgId,
+          activeStatus
+
+        }
+      })
+      return results;
+    } catch (error) {
+      return error;
+    } finally {
+      await prisma.$disconnect;
+    }
   }
 
   deleteDepartment(): string {

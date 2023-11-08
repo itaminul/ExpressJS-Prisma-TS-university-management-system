@@ -4,6 +4,6 @@ const router = express.Router();
 const departmentSetupController = new DepartmentSetupController();
 router.route('/').get(departmentSetupController.getAll);
 router.route('/').post(departmentSetupController.create);
-router.route('/').patch(departmentSetupController.update);
+router.route('/:id').patch(departmentSetupController.update);
 router.route('/').delete(departmentSetupController.deleteDepartment);
 export default router;

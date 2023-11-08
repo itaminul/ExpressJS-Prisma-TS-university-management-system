@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Response, NextFunction } from 'express';
 
 // Interface for the response format
 interface CustomResponse {
@@ -18,10 +18,11 @@ export function sendSuccessResponse(statusCode: number, data: unknown, res: Resp
 }
 
 // Middleware function for sending error responses
-export function sendErrorResponse(statusCode: number,res: Response) {
+export function sendErrorResponse(statusCode: number,res: Response,  next: NextFunction) {
   const response: CustomResponse = {
     success: false,
     status: statusCode
   };
   res.status(statusCode).json(response);
+  next();
 }
