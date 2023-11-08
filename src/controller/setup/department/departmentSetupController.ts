@@ -6,20 +6,17 @@ export class DepartmentSetupController {
   getAll = async(req: Request, res: Response): Promise<void> => {
     try {
       const results = await departmentSetupService.getAll();
-      const message = 'Request successful';
-      sendSuccessResponse(200, results, message, res);
+      sendSuccessResponse(200, results, res);
     } catch (error) {
        // Handle errors if necessary
-    const errorMessage = 'An error occurred';
-    sendErrorResponse(500, errorMessage, res);
+    sendErrorResponse(500, res);
     }
   }
 
   create = async(req: Request, res: Response): Promise<void> => {
     try {
       const results = await departmentSetupService.create();
-      const message = 'Created successful';
-      sendSuccessResponse(200, results, message, res);
+      sendSuccessResponse(200, results, res);
     } catch (error) {
       res.json({ message: error});
     }
@@ -28,8 +25,7 @@ export class DepartmentSetupController {
   update = async(req: Request, res: Response): Promise<void> => {
     try {     
       const results = await departmentSetupService.update();
-      const message = 'Updated successful';
-      sendSuccessResponse(200, results, message, res);
+      sendSuccessResponse(200, results, res);
     } catch (error) {
       res.json({ message: error});
     }
