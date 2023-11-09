@@ -1,11 +1,12 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
-import ErrorHandler from '../src/middlware/ErrorHandler'
+import ErrorHandler from '../src/middleware/ErrorHandler'
 import router from "../src/routes/indexRoute";
 import cors from "cors";
 import dotenv  from "dotenv";
 dotenv.config()
 import cookieParser from "cookie-parser";
+import { handlePrismaError } from "./middleware/prismaErrorHandler";
 const app = express();
 app.use(cors());
 app.use(cookieParser())
@@ -19,6 +20,7 @@ app.get("/check", (_req: Request, res: Response) => {
 app.use("/api", router);
 const port = process.env.PORT || 4001;
 app.use(ErrorHandler);
+app.use(handlePrismaError);
 const hostname = process.env.HOSTNAME;
 app.listen(port, () => {
   return console.log(`Server running at http://${hostname}:${port}`);

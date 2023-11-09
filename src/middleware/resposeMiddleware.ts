@@ -17,7 +17,6 @@ export function sendSuccessResponse(statusCode: number, data: unknown, res: Resp
   res.status(statusCode).json(response);
 }
 
-// Middleware function for sending error responses
 export function sendErrorResponse(statusCode: number,res: Response,  next: NextFunction) {
   const response: CustomResponse = {
     success: false,
