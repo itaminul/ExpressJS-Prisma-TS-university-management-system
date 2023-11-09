@@ -1,7 +1,9 @@
 import express from 'express'
 import departmentSetupRoute from '../routes/departmentSetupRoute';
+import organizationRote from '../routes/organizationSetupRoute'
 import authRoute from '../routes/authRoute';
 const router = express.Router();
 router.use('/auth', authRoute);
 router.use('/departmentSetup', departmentSetupRoute);
+router.use('/organization', organizationRote)
 export default router;
