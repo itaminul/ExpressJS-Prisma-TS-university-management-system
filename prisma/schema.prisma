@@ -12,6 +12,8 @@ datasource db {
 
 model User {
   id    Int     @id @default(autoincrement())
+  username String @unique
+  password String
   email String  @unique
   name  String?
   mobileNumber String?
@@ -20,6 +22,7 @@ model User {
   desigId      Int?
   roleId       Int?
   orgId        Int?
+  token String?
   companyId    Int?
   activeStatus Boolean   @default(true)
   createdDate  String?
@@ -29,6 +32,21 @@ model User {
   updatedDate  String?
   updatedTime  String?
   updatedAt    DateTime?
+  userToken UserToken[]
+
+}
+
+model UserToken  {
+  id Int @id @default(autoincrement())
+  token String?
+  userRoleId String?
+  orgId String?
+  createdAt DateTime? @default(now())
+  createdBy String?
+  updatedAt DateTime?
+  updatedBy String?
+  user User? @relation(fields: [userId], references: [id])
+  userId Int?
 
 }
 

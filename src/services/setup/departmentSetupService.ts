@@ -3,9 +3,6 @@ import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
 export class DepartmentSetupService {
-
-
-
   getAll = async() => {      
     try    {
       const results = await prisma.department.findMany({
