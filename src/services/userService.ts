@@ -13,14 +13,26 @@ export class UserService {
     }
   }
 
-  create = async(req: Request) => {
+  create = async(req: Request, res: Response) => {
     try {
-      const {username, password, email} = req.body
+      const {username, password, email, roleId, orgId} = req.body
+      const findUser = await prisma.user.findFirst({
+        where: {
+          username
+        }
+      })
+
+      if(findUser) {
+        res.json({ success: true, "message": "User Already Exist", findUser });
+      }
+     
       const results = await prisma.user.create({
         data: {
           username,
           password,
-          email
+          email,
+          roleId,
+          orgId
         }
       })
       return results;
