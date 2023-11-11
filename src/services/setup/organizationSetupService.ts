@@ -2,13 +2,10 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
-export class DepartmentSetupService {
-
-
-
+export class OrganizationSetupService {
   getAll = async() => {      
     try    {
-      const results = await prisma.department.findMany({
+      const results = await prisma.organization.findMany({
         where: {
           activeStatus: true
         }
@@ -23,12 +20,11 @@ export class DepartmentSetupService {
 
   create = async(req: Request, res: Response) => {
     try {
-      const { departmentName, departmentDescription, orgId}= req.body;
-      const results = await prisma.department.create({
+      const { orgName, orgDescription}= req.body;
+      const results = await prisma.organization.create({
         data: {
-          departmentName,
-          departmentDescription,
-          orgId
+          orgName,
+          orgDescription
         }
       })
       return results;
@@ -41,16 +37,15 @@ export class DepartmentSetupService {
 
   update = async(req: Request, res: Response) => {
     try {
-      const { departmentName, departmentDescription, orgId, activeStatus}= req.body;
+      const { orgName, orgDescription, orgId, activeStatus}= req.body;
       console.log(req.body);
-      const results = await prisma.department.update({
+      const results = await prisma.organization.update({
         where: {
           id: Number(req.params)
         },
         data: {
-          departmentName,
-          departmentDescription,
-          orgId,
+          orgName,
+          orgDescription,
           activeStatus
 
         }
