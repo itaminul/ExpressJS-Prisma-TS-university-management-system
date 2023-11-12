@@ -16,11 +16,11 @@ export class UserController {
 
   create = async(req: Request, res: Response, next: NextFunction) => {
     try {
-      const [username, password, email, roleId, orgId] = req.body;
-      const userExist = await userService.getUserById(username);
-      if(userExist) {
-        return res.status(400).json({ error: 'Username already exists'});
-      }
+      const {username, password, email, roleId, orgId} = req.body;
+       const userExist = await userService.getUserById(username);
+        if(userExist) {
+         return res.status(400).json({ error: 'Username already exists'});
+       }
       const hashedPassword = bcrypt.hashSync(password, 10);
       const newUser = {
         username,

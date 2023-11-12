@@ -33,14 +33,14 @@ export class UserService {
     try {
    
       const {username, password, email, roleId, orgId} = newUser
-      const findUser = await prisma.user.findFirst({
+      const isUserAllReadyExist = await prisma.user.findFirst({
         where: {
           username
         }
       })
 
-      if(findUser) {
-       res.json({ success: true, "message": "User Already Exist", findUser });
+      if(isUserAllReadyExist) {
+       res.json({ success: true, "message": "User Already Exist", isUserAllReadyExist });
       }
      
       const results = await prisma.user.create({
