@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { Request } from "express";
+import { Request, Response } from "express";
 const prisma = new PrismaClient();
 export class UserService {
   getAll = async() => {
@@ -13,9 +13,26 @@ export class UserService {
     }
   }
 
-  create = async(req: Request, res: Response) => {
+  getUserById = async(req: Request) => {
     try {
-      const {username, password, email, roleId, orgId} = req.body
+      const [ username ] = req.body;
+      const result = await prisma.user.findUnique({
+        where: {
+          username
+        }
+      });
+      return result;
+    } catch (error) {
+      console.log('error', error);
+    }finally {
+      await prisma.$disconnect;
+    }
+  }
+
+  create = async( res: Response, newUser: { username: string; password: string; email: string, roleId: number, orgId: number }) => {
+    try {
+   
+      const {username, password, email, roleId, orgId} = newUser
       const findUser = await prisma.user.findFirst({
         where: {
           username
@@ -23,7 +40,7 @@ export class UserService {
       })
 
       if(findUser) {
-        res.json({ success: true, "message": "User Already Exist", findUser });
+       res.json({ success: true, "message": "User Already Exist", findUser });
       }
      
       const results = await prisma.user.create({
