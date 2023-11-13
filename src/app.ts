@@ -8,6 +8,7 @@ dotenv.config()
 import cookieParser from "cookie-parser";
 import { handlePrismaError } from "./middleware/prismaErrorHandler";
 import passport from "passport";
+import session from 'express-session';
 const app = express();
 app.use(cors());
 app.use(cookieParser())
@@ -20,6 +21,14 @@ app.get("/check", (_req: Request, res: Response) => {
 });
 app.use("/api", router);
 const port = process.env.PORT || 4001;
+app.use(
+  session({
+    secret: 'your-secret-key', // Replace with a strong and secure secret key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 app.use(ErrorHandler);
 app.use(handlePrismaError);
 app.use(passport.initialize());
