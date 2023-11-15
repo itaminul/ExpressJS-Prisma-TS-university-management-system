@@ -12,12 +12,10 @@ export class Authentication {
   userLogin = async(req: Request, res: Response, next: NextFunction):Promise<void> => {
     const { username, password }: UserLogin = req.body;
     try {
-      const session = req.session;
-      res.json({ message: session});
-      // const error = validationResult
       const results = await authService.loginService(username, password, res, next);
-      res.json({ message: results});
+      res.json(results);
     } catch (error) {
+      // res.status(500).json({ error: 'Internal Server Error' });
       res.json({ message: error});
       
     }
