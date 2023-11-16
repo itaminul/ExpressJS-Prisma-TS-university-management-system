@@ -24,11 +24,13 @@ export class OrganizationSetupController {
 
   update = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {     
-      const results = await organizationSetupService.update(req, res);
-      sendSuccessResponse(200, results, res);
+      const results = await organizationSetupService.update(req, res, next);
+       res.json({ success: true, "message": "Update successfully", results})  
+      // return results;
+      // sendSuccessResponse(200, results, res);
     } catch (error) {
        const errorMessage = handlePrismaError(error, req, res, next);
-    res.status(400).json({ success: false, error: errorMessage });
+       res.status(400).json({ success: false, error: errorMessage });
       // sendErrorResponse(500, res, next);
     }
   }
