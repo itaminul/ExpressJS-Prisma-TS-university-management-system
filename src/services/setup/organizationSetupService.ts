@@ -37,19 +37,21 @@ export class OrganizationSetupService {
 
   update = async(req: Request, res: Response) => {
     try {
-      const { orgName, orgDescription, orgId, activeStatus}= req.body;
-      console.log(req.body);
+      const { serialNo, orgName, orgDescription, activeStatus}= req.body;
+      console.log('parameter id', req.params);
       const results = await prisma.organization.update({
         where: {
           id: Number(req.params)
         },
         data: {
+          serialNo,
           orgName,
           orgDescription,
           activeStatus
 
         }
       })
+
       return results;
     } catch (error) {
       return error;
