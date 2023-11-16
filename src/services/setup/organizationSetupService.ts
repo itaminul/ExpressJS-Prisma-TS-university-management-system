@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import { sendSuccessResponse } from "../../middleware/resposeMiddleware";
 
 const prisma = new PrismaClient();
 export class OrganizationSetupService {
@@ -27,7 +28,7 @@ export class OrganizationSetupService {
           orgDescription
         }
       })
-      return results;
+        sendSuccessResponse(200, results, res);
     } catch (error) {
       return error;      
     } finally {
@@ -35,26 +36,25 @@ export class OrganizationSetupService {
     }
   }
 
-  update = async(req: Request, res: Response) => {
+  update = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { serialNo, orgName, orgDescription, activeStatus}= req.body;
-      console.log('parameter id', req.params);
+      console.log("body", req.body);
       const results = await prisma.organization.update({
         where: {
-          id: Number(req.params)
+          id: Number(req.params.id)
         },
         data: {
           serialNo,
           orgName,
           orgDescription,
-          activeStatus
+          activeStatus: true
 
         }
       })
-
       return results;
     } catch (error) {
-      return error;
+      next(error)
     } finally {
       await prisma.$disconnect;
     }
