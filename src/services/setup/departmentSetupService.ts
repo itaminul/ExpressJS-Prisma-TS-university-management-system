@@ -5,11 +5,7 @@ const prisma = new PrismaClient();
 export class DepartmentSetupService {
   getAll = async() => {      
     try    {
-      const results = await prisma.department.findMany({
-        where: {
-          activeStatus: true
-        }
-      })
+      const results = await prisma.department.findMany()
       return results;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -27,7 +23,7 @@ export class DepartmentSetupService {
           departmentDescription,
           orgId
         }
-      })
+      })      
       return results;
     } catch (error) {
       return error;      
@@ -39,10 +35,9 @@ export class DepartmentSetupService {
   update = async(req: Request, res: Response) => {
     try {
       const { departmentName, departmentDescription, orgId, activeStatus}= req.body;
-      console.log(req.body);
       const results = await prisma.department.update({
         where: {
-          id: Number(req.params)
+          id: Number(req.params.id)
         },
         data: {
           departmentName,

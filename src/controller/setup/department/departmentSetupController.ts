@@ -16,6 +16,7 @@ export class DepartmentSetupController {
   create = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const results = await departmentSetupService.create(req, res);
+      // console.log("depar controller", results);
       sendSuccessResponse(200, results, res);
     } catch (error) {
       sendErrorResponse(500, res, next);
