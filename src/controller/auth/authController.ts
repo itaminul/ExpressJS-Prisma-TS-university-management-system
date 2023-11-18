@@ -13,7 +13,7 @@ export class Authentication {
     const { username, password }: UserLogin = req.body;
     try {
       const results = await authService.loginService(username, password, res, next);
-      res.json(results);
+     return results;
     } catch (error) {
       // res.status(500).json({ error: 'Internal Server Error' });
       res.json({ message: error});

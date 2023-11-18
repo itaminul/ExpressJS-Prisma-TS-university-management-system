@@ -30,7 +30,7 @@ app.use(
 );
 
 app.use(ErrorHandler);
-app.use(handlePrismaError);
+// app.use(handlePrismaError);
 app.use(passport.initialize());
 const hostname = process.env.HOSTNAME;
 app.listen(port, () => {

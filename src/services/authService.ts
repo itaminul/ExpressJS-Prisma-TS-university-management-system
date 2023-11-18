@@ -7,9 +7,10 @@ export class AuthService {
 
   loginService = async(username: string, password: string, res: Response, next: NextFunction) => {
     try {
+      console.log("check");
       const isUserExist = await userService.getUserById(username);
       const user = await userService.getUserById(username);
-
+      console.log("isUserExist", isUserExist);
     if(!isUserExist) {
       res.json({ success: true, "message": "User not found"});
     }
