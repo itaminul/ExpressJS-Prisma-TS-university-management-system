@@ -16,26 +16,38 @@ export class EmployeeService {
   create = async(req: Request, res: Response, next: NextFunction) => {  
 
     try {
-      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail, empPresentAddress} = req.body;
+      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail, empPresentAddress,departmentId,designationId,religionId,bloodGroupId,empPermanentAddress,employeeEdu} = req.body;
       await prisma.$transaction(async (prisma) => {
         const createdParent = await prisma.employeeInfo.create({
           data: {
-            firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,
+            firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,
             employeePresentAddress: {
               createMany: {
                 data: empPresentAddress,
               },
             },
+            employeePermanentAddress: {
+              createMany: {
+                data: empPermanentAddress,
+              },
+            },
+            employeeEdu: {
+              createMany: {
+                data: employeeEdu,
+              },
+            },            
           },
           include: {
             employeePresentAddress: true,
+            employeePermanentAddress: true
           },
         });
   
         res.json(createdParent);
       });
     } catch (error) {
-      res.status(500).json({ error: 'Error creating parent and children in transaction' });
+      next(error);
+      //res.status(500).json({ error: 'Error creating parent and children in transaction' });
     }
 
      /* try {
