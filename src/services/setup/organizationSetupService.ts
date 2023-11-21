@@ -21,9 +21,10 @@ export class OrganizationSetupService {
 
   create = async(req: Request, res: Response) => {
     try {
-      const { orgName, orgDescription}= req.body;
+      const { serialNo, orgName, orgDescription}= req.body;
       const results = await prisma.organization.create({
         data: {
+          serialNo: Number(serialNo),
           orgName,
           orgDescription
         }
@@ -45,10 +46,10 @@ export class OrganizationSetupService {
           id: Number(req.params.id)
         },
         data: {
-          serialNo,
+          serialNo: Number(serialNo),
           orgName,
           orgDescription,
-          activeStatus: true
+          activeStatus
 
         }
       })
