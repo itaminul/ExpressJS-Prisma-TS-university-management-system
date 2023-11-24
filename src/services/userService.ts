@@ -15,7 +15,6 @@ export class UserService {
 
   getUserById = async(username: string) => {
     try {
-      // const [ username ] = req.body;
       const result = await prisma.user.findUnique({
         where: {
           username
