@@ -20,10 +20,10 @@ app.get("/check", (_req: Request, res: Response) => {
   res.json({ message: "Start the projects", age });
 });
 app.use("/api", router);
-const port = process.env.PORT || 4001;
+const port = process.env.APP_PORT || 4001;
 app.use(
   session({
-    secret: 'your-secret-key', // Replace with a strong and secure secret key
+    secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
   })
@@ -37,5 +37,3 @@ app.listen(port, () => {
   return console.log(`Server running at http://${hostname}:${port}`);
 
 });
-//https://dev.to/juliecherner/authentication-with-jwt-tokens-in-typescript-with-express-3gb1
-//https://dev.to/mihaiandrei97/jwt-authentication-using-prisma-and-express-37nk
