@@ -43,8 +43,10 @@ export class EmployeeService {
           },
         });
   
-        res.json(createdParent);
+        return createdParent;
       });
+      // return createdParent;
+      
     } catch (error) {
       next(error);
       //res.status(500).json({ error: 'Error creating parent and children in transaction' });
