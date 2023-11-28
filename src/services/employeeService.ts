@@ -16,26 +16,21 @@ export class EmployeeService {
   create = async(req: Request, res: Response, next: NextFunction) => {  
 
     try {
-      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail, empPresentAddress,departmentId,designationId,religionId,bloodGroupId,empPermanentAddress,employeeEdu} = req.body;
+      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail, employeePresentAddress,departmentId,designationId,religionId,bloodGroupId,employeePermanentAddress} = req.body;
       await prisma.$transaction(async (prisma) => {
         const createdParent = await prisma.employeeInfo.create({
           data: {
             firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,
             employeePresentAddress: {
               createMany: {
-                data: empPresentAddress,
+                data: employeePresentAddress,
               },
             },
             employeePermanentAddress: {
               createMany: {
-                data: empPermanentAddress,
+                data: employeePermanentAddress,
               },
-            },
-            employeeEdu: {
-              createMany: {
-                data: employeeEdu,
-              },
-            },            
+            }            
           },
           include: {
             employeePresentAddress: true,
@@ -43,7 +38,8 @@ export class EmployeeService {
           },
         });
   
-        return createdParent;
+        // return createdParent;
+        res.status(201).json({ message: 'Parent and children inserted successfully', createdParent });
       });
       // return createdParent;
       
@@ -80,7 +76,7 @@ export class EmployeeService {
     } catch (error) {
       console.log("error", error);
       next(error);
-    }*/
+    }
   }
 
   update = async(req: Request, res: Response) => {
