@@ -16,7 +16,7 @@ export class EmployeeController {
   }
 
   create = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
-    console.log("requiest", req);
+   // console.log("requiest", req);
     try {
       const results = await empService.create(req, res, next);
      return results;

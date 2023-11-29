@@ -76,7 +76,7 @@ export class EmployeeService {
     } catch (error) {
       console.log("error", error);
       next(error);
-    }
+    } */
   }
 
   update = async(req: Request, res: Response) => {
