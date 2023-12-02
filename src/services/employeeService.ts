@@ -39,6 +39,7 @@ export class EmployeeService {
                 data: employeePresentAddress,
               },
             },
+            
             employeePermanentAddress: {
               createMany: {
                 data: employeePermanentAddress,
