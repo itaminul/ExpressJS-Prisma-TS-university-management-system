@@ -2,10 +2,10 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
-export class DepartmentSetupService {
+export class PoliceStationSetupService {
   getAll = async() => {      
     try    {
-      const results = await prisma.department.findMany()
+      const results = await prisma.thana.findMany()
       return results;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -13,14 +13,13 @@ export class DepartmentSetupService {
       await prisma.$disconnect();
     }
   }
-
   create = async(req: Request, res: Response) => {
     try {
-      const { departmentName, departmentDescription, orgId}= req.body;
-      const results = await prisma.department.create({
+      const { thanaName, thanaDes, orgId}= req.body;
+      const results = await prisma.thana.create({
         data: {
-          departmentName,
-          departmentDescription,
+          thanaName,
+          thanaDes,
           orgId
         }
       })      
@@ -34,14 +33,14 @@ export class DepartmentSetupService {
 
   update = async(req: Request, res: Response) => {
     try {
-      const { departmentName, departmentDescription, orgId, activeStatus}= req.body;
-      const results = await prisma.department.update({
+      const { thanaName, thanaDes, orgId, activeStatus}= req.body;
+      const results = await prisma.thana.update({
         where: {
           id: Number(req.params.id)
         },
         data: {
-          departmentName,
-          departmentDescription,
+          thanaName,
+          thanaDes,
           orgId,
           activeStatus
 
@@ -56,6 +55,6 @@ export class DepartmentSetupService {
   }
 
   deleteDepartment(): string {
-    return 'Delete Department';
+    return 'Delete Thana';
   }
 }
