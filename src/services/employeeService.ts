@@ -4,7 +4,20 @@ const prisma = new PrismaClient();
 export class EmployeeService {
   getAll = async() => {
     try {
-      const results = await prisma.employeeInfo.findMany();
+      const results = await prisma.employeeInfo.findMany({
+        include: {
+          employeePresentAddress: {
+            include: {
+              thana: true
+            }
+          },
+          employeePermanentAddress: {
+            include: {
+              thana: true
+            }
+          }          
+        }
+      });
       return results;
     } catch (error) {
       console.log("error", error);
