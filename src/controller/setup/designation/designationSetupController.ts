@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { DepartmentSetupService } from "../../../services/setup/departmentSetupService";
+import { DesignationSetupService } from "../../../services/setup/designationSetupService";
 import { sendErrorResponse, sendSuccessResponse } from "../../../middleware/resposeMiddleware";
 import { handlePrismaError } from "../../../middleware/prismaErrorHandler";
-const departmentSetupService = new  DepartmentSetupService();
-export class DepartmentSetupController {
+const designationSetupService = new  DesignationSetupService();
+export class DesignationSetupController {
   getAll = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const results = await departmentSetupService.getAll();
+      const results = await designationSetupService.getAll();
       sendSuccessResponse(200, results, res);
     } catch (error) {
     sendErrorResponse(500, res, next);
@@ -15,7 +15,7 @@ export class DepartmentSetupController {
 
   create = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const results = await departmentSetupService.create(req, res);
+      const results = await designationSetupService.create(req, res);
       // console.log("depar controller", results);
       sendSuccessResponse(200, results, res);
     } catch (error) {
@@ -25,7 +25,7 @@ export class DepartmentSetupController {
 
   update = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {     
-      const results = await departmentSetupService.update(req, res);
+      const results = await designationSetupService.update(req, res);
       sendSuccessResponse(200, results, res);
     } catch (error) {
        const errorMessage = handlePrismaError(error, req, res, next);
@@ -36,7 +36,7 @@ export class DepartmentSetupController {
 
   deleteDepartment = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const results = await departmentSetupService.deleteDepartment();
+      const results = await designationSetupService.deleteDepartment();
       res.json({ message: results});
     } catch (error) {
       sendErrorResponse(500, res, next);
