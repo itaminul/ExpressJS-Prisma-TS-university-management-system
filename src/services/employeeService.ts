@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+import { sendSuccessResponse } from "../middleware/resposeMiddleware";
+import { sendErrorResponse } from "../middleware/resposeMiddleware";
 const prisma = new PrismaClient();
 export class EmployeeService {
   getAll = async() => {
@@ -93,20 +95,50 @@ export class EmployeeService {
     } */
   }
 
-  update = async(req: Request, res: Response) => {
+  update = async(req: Request, res: Response, next: NextFunction) => {
     try {
-      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail} = req.body;
+      await prisma.employeePermanentAddress.deleteMany({
+        where: {
+          empId: Number(req.params.id)
+        }
+      })
+      await prisma.employeePresentAddress.deleteMany({
+        where: {
+          empId: Number(req.params.id)
+        }
+      })      
+      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,employeePermanentAddress, employeePresentAddress} = req.body;
+      console.log("fff", req.body); 
       const results = await prisma.employeeInfo.update({
         where: {
           id: Number(req.params.id)
         },
-        data: {
-          firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail
+        data: { 
+          firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,
+          employeePresentAddress: {
+              createMany: {
+                data: employeePresentAddress,
+              },
+            },            
+            employeePermanentAddress: {
+              createMany: {
+                data: employeePermanentAddress,
+              },
+            } 
+        },
+        include: {
+          employeePresentAddress: true,
+          employeePermanentAddress: true,
         }        
       })
-      return results;
+      sendSuccessResponse(200, results, res);
+      // res.status(200).json({ message: 'Parent and children inserted successfully', results });
+      // return results;
     } catch (error) {
-      console.log("error", error);
+      return error;   
+      // next(error)
+      // sendErrorResponse(500, res, next);
+      // console.log("error");
     }finally {
       await prisma.$disconnect;
     }
