@@ -27,11 +27,15 @@ export class EmployeeController {
 
   update = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {     
-      const results = await empService.update(req, res);
-      sendSuccessResponse(200, results, res);
+      const results = await empService.update(req, res, next);
+      // return results;
+      // return results;
+       sendSuccessResponse(200, results, res);
+      // res.status(200).json({ message: 'Parent and children inserted successfully', results });
     } catch (error) {
-       const errorMessage = handlePrismaError(error, req, res, next);
-    res.status(400).json({ success: false, error: errorMessage });
+      console.log("error", error);
+      //  const errorMessage = handlePrismaError(error, req, res, next);
+    // res.status(400).json({ success: false, error: errorMessage });
       // sendErrorResponse(500, res, next);
     }
   }
