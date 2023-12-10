@@ -29,7 +29,7 @@ export class OrganizationSetupService {
           orgDescription
         }
       })
-        sendSuccessResponse(200, results, res);
+      return results;
     } catch (error) {
       return error;      
     } finally {
