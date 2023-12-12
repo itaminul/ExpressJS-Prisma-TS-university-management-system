@@ -107,14 +107,14 @@ export class EmployeeService {
           empId: Number(req.params.id)
         }
       })      
-      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,employeePermanentAddress, employeePresentAddress} = req.body;
+      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,maritialStatus,employeePermanentAddress, employeePresentAddress} = req.body;
       console.log("fff", req.body); 
       const results = await prisma.employeeInfo.update({
         where: {
           id: Number(req.params.id)
         },
         data: { 
-          firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,
+          firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,maritialStatus,
           employeePresentAddress: {
               createMany: {
                 data: employeePresentAddress,
@@ -131,9 +131,9 @@ export class EmployeeService {
           employeePermanentAddress: true,
         }        
       })
-      sendSuccessResponse(200, results, res);
+      // sendSuccessResponse(200, results, res);
       // res.status(200).json({ message: 'Parent and children inserted successfully', results });
-      // return results;
+      return results;
     } catch (error) {
       return error;   
       // next(error)
