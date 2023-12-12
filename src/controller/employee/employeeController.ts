@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { EmployeeService } from "../../services/employeeService";
 import { sendErrorResponse, sendSuccessResponse } from "../../middleware/resposeMiddleware";
-import { handlePrismaError } from "../../middleware/prismaErrorHandler";
-
-
 const empService = new EmployeeService();
 export class EmployeeController {
   getAll = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
