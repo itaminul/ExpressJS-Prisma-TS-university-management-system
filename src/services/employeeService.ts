@@ -31,11 +31,12 @@ export class EmployeeService {
   create = async(req: Request, res: Response, next: NextFunction) => {  
 
     try {
-      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail, employeePresentAddress,departmentId,designationId,religionId,bloodGroupId,employeePermanentAddress} = req.body;
+      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail, employeePresentAddress,departmentId,designationId,religionId,bloodGroupId,genderId,employeePermanentAddress} = req.body;
+      console.log("req body", req.body);
       await prisma.$transaction(async (prisma) => {
         const createdParent = await prisma.employeeInfo.create({
           data: {
-            firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,
+            firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,genderId,
             employeePresentAddress: {
               createMany: {
                 data: employeePresentAddress,
@@ -107,14 +108,14 @@ export class EmployeeService {
           empId: Number(req.params.id)
         }
       })      
-      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,maritialStatus,employeePermanentAddress, employeePresentAddress} = req.body;
+      const {firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,maritialStatus,genderId,employeePermanentAddress, employeePresentAddress} = req.body;
       console.log("fff", req.body); 
       const results = await prisma.employeeInfo.update({
         where: {
           id: Number(req.params.id)
         },
         data: { 
-          firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,maritialStatus,
+          firstName,middleName,lastName,fullName,phone,mobileOne,mobileTwo,emergencyMobile,officeEmail,personalEmail,departmentId,designationId,religionId,bloodGroupId,maritialStatus,genderId,
           employeePresentAddress: {
               createMany: {
                 data: employeePresentAddress,

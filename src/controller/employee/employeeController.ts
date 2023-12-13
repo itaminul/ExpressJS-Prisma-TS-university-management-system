@@ -13,7 +13,6 @@ export class EmployeeController {
   }
 
   create = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
-   // console.log("requiest", req);
     try {
       const results = await empService.create(req, res, next);
      return results;
@@ -25,6 +24,7 @@ export class EmployeeController {
   update = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {     
       const results = await empService.update(req, res, next);
+
       // return results;
       // return results;
        sendSuccessResponse(200, results, res);
