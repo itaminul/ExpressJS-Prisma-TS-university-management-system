@@ -55,7 +55,16 @@ export class DepartmentSetupService {
     }
   }
 
-  deleteDepartment(): string {
-    return 'Delete Department';
+  deleteDepartment = async(req: Request, res:Response) => {
+    try {
+     const result = await prisma.department.delete({
+      where: {
+        id: Number(req.params.id),
+      }
+     })
+     return result;
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 }

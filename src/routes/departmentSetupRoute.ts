@@ -5,5 +5,5 @@ const departmentSetupController = new DepartmentSetupController();
 router.route('/').get(departmentSetupController.getAll);
 router.route('/').post(departmentSetupController.create);
 router.route('/:id').patch(departmentSetupController.update);
-router.route('/').delete(departmentSetupController.deleteDepartment);
+router.route('/:id').delete(departmentSetupController.deleteDepartment);
 export default router;
