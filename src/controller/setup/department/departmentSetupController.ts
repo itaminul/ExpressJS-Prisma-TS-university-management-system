@@ -36,7 +36,7 @@ export class DepartmentSetupController {
 
   deleteDepartment = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const results = await departmentSetupService.deleteDepartment();
+      const results = await departmentSetupService.deleteDepartment(req, res);
       res.json({ message: results});
     } catch (error) {
       sendErrorResponse(500, res, next);

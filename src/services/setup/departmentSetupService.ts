@@ -55,6 +55,10 @@ export class DepartmentSetupService {
     }
   }
 
+  
+
+
+
   deleteDepartment = async(req: Request, res:Response) => {
     try {
      const result = await prisma.department.delete({
