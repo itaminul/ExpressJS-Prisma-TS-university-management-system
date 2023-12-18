@@ -54,7 +54,16 @@ export class PoliceStationSetupService {
     }
   }
 
-  deleteDepartment(): string {
-    return 'Delete Thana';
+  deletePoliceStation = async(req: Request, res: Response) => {
+    try {
+      const result = await prisma.thana.delete({
+        where: {
+          id: Number(req.params.id)
+        }
+      })
+      return result;
+    } catch (error) {
+      console.log("Error", error);
+    }
   }
 }
