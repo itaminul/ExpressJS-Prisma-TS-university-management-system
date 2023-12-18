@@ -55,7 +55,7 @@ export class PoliceStationService {
     }
   }
 
-  deleteThana = async(req: Request, res:Response) => {
+  deletePoliceStation = async(req: Request, res:Response) => {
     try {
      const result = await prisma.thana.delete({
       where: {
