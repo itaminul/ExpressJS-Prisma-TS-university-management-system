@@ -34,7 +34,7 @@ export class PoliceStationSetupController {
 
   deletePoliceStation = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const results = await policeStationSetupService.deletePoliceStation();
+      const results = await policeStationSetupService.deletePoliceStation(req, res);
       res.json({ message: results});
     } catch (error) {
       sendErrorResponse(500, res, next);
