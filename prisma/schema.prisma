@@ -138,6 +138,7 @@ model EmployeeInfo {
   attendance               Attendance[]
   employeePresentAddress   EmployeePresentAddress[]
   employeePermanentAddress EmployeePermanentAddress[]
+  board Board[]
 }
 
 model EmployeePresentAddress {
@@ -475,4 +476,23 @@ model Holidays {
   updatedTime       String?
   updatedAt         DateTime?
   updatedBy         Int?
+}
+
+model Board {
+  id           Int            @id @default(autoincrement())
+  employeeInfo          EmployeeInfo? @relation(fields: [empId], references: [id])
+  empId                 Int? //present divisition
+  boardName  String
+  boardDes   String?
+  orgId        Int?
+  serialNo     Int?
+  activeStatus Boolean        @default(true)
+  createdDate  String?
+  createdTime  String?
+  createdBy    Int?
+  createdAt    DateTime       @default(now())
+  updatedDate  String?
+  updatedTime  String?
+  updatedAt    DateTime?
+  updatedBy    Int?
 }
