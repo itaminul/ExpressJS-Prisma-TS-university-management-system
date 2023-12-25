@@ -6,7 +6,7 @@ import cors from "cors";
 import dotenv  from "dotenv";
 dotenv.config()
 import cookieParser from "cookie-parser";
-import { handlePrismaError } from "./middleware/prismaErrorHandler";
+// import { handlePrismaError } from "./middleware/prismaErrorHandler";
 import passport from "passport";
 import session from 'express-session';
 const app = express();
