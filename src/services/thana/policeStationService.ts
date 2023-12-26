@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 const prisma = new PrismaClient();
 export class PoliceStationService {
@@ -32,7 +32,7 @@ export class PoliceStationService {
     }
   }
 
-  update = async(req: Request, res: Response) => {
+  update = async(req: Request, res: Response, next: NextFunction) => {
     try {
       const { thanaName, thanaDes, orgId, activeStatus}= req.body;
       const results = await prisma.thana.update({
@@ -55,7 +55,7 @@ export class PoliceStationService {
     }
   }
 
-  deletePoliceStation = async(req: Request, res:Response) => {
+  deletePoliceStation = async(req: Request, res:Response, next: NextFunction) => {
     try {
      const result = await prisma.thana.delete({
       where: {
