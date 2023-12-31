@@ -1,9 +1,10 @@
 import express from 'express';
 import { PoliceStationSetupController } from '../controller/setup/policeStation/policeStationSetupController';
+import { policeStationCreateValidation, policeStationUpdateValidation } from '../validation/policeStationValidation';
 const router = express.Router();
 const policeStationSetupController = new PoliceStationSetupController();
-router.route('/').get(policeStationSetupController.getAll);
-router.route('/').post(policeStationSetupController.create);
-router.route('/:id').patch(policeStationSetupController.update);
-router.route('/').delete(policeStationSetupController.deletePoliceStation);
+router.get('/', policeStationSetupController.getAll);
+router.post('/', policeStationCreateValidation(), policeStationSetupController.create);
+router.patch('/:id', policeStationUpdateValidation(), policeStationSetupController.update);
+router.delete('/',policeStationSetupController.deletePoliceStation);
 export default router;
