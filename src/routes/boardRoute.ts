@@ -1,8 +1,9 @@
 import  express  from "express";
 import { BoardController } from "../controller/board/boardController";
+import { boardCreateValidation, boardUpdateValidation } from "../validation/boardValidation";
 const router = express. Router();
 const boardController = new BoardController();
-router.route('/').get(boardController.getall);
-router.route('/').get(boardController.create);
-router.route('/:id').get(boardController.update);
+router.get('/', boardController.getall);
+router.post('/', boardCreateValidation(), boardController.create);
+router.patch('/:id', boardUpdateValidation(), boardController.update);
 export default router;
