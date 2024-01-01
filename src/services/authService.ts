@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import { UserService } from "./userService"
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt'
+const secretKey = 'your_secret_key_here'; 
 const userService = new UserService();
 export class AuthService {
 
@@ -44,5 +45,16 @@ export class AuthService {
     } catch (error) {
      next(error)
     }
+  }
+
+    verifyToken = async(token: string): Promise<unknown> => {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(decoded);
+      });
+    });
   }
 }
