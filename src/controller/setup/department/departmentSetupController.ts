@@ -15,6 +15,7 @@ export class DepartmentSetupController {
     }
   }
 
+  
   create = async(req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
       if (!errors.isEmpty()) {
