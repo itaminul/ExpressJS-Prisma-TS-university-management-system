@@ -1,17 +1,20 @@
-import { body, ValidationChain } from "express-validator";
+import { body, check, ValidationChain } from "express-validator";
 export const designationValidator = (): ValidationChain[] => {
   return  [
-  body('designationName', 'Designation Name does not empty').exists().notEmpty(),
-  body('designationDes','Designation description does not empty and minimum 6 character').not().isEmpty().isLength({min: 6}),
-  body('orgId','Organization does not empty and must be number').not().isEmpty().isNumeric()  
+  check('designationName').notEmpty().withMessage( 'Designation name is required'),
+  check('designationDes').notEmpty().withMessage('Designation description is required')
+  .isLength({min: 6}).withMessage('Designation description minimum 6 character'),
+  check('orgId',).isEmpty().withMessage('Organization is required')
+  .isNumeric().withMessage('Organization must be number')  
 ]
 }
 
 export const designationUpdateValidator = (): ValidationChain[] => {
   return  [
-  body('designationName', 'Designation Name does not empty').exists().notEmpty(),
-  body('designationDes','Designation description does not empty and minimum 6 character').not().isEmpty().isLength({min: 6}),
-  body('orgId','Organization does not empty and must be number').not().isEmpty().isNumeric(),
-  body('activeStatus','Active Status does not empty and must be boolean').not().isEmpty().isBoolean()  
+  check('designationName').notEmpty().withMessage( 'Designation name is required'),
+  check('designationDes').notEmpty().withMessage('Designation description is required')
+  .isLength({min: 6}).withMessage('Designation description minimum 6 character'),
+  check('orgId',).isEmpty().withMessage('Organization is required')
+  .isNumeric().withMessage('Organization must be number')  
 ]
 }

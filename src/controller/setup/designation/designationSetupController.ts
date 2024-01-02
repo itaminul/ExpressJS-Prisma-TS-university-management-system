@@ -14,12 +14,14 @@ export class DesignationSetupController {
     }
   }
 
-  create = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
+  create = async(req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
-      return;
-    }
+      if (!errors.isEmpty()) {
+         return res.status(400).json({
+        success: false,
+        errors: errors.array(),
+      });
+      }
     try {
       const results = await designationSetupService.create(req, res);
       // console.log("depar controller", results);
