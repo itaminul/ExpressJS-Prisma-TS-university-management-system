@@ -1,17 +1,24 @@
-import { body, ValidationChain } from "express-validator";
+import { check, ValidationChain } from "express-validator";
 export const organizationCreateValidator = (): ValidationChain[] => {
   return  [
-  body('orgName', 'Organization Name does not empty').exists().notEmpty(),
-  body('orgDescription','Designation description does not empty and minimum 6 character').not().isEmpty().isLength({min: 6}),
-  body('orgId','Organization does not empty and must be number').not().isEmpty().isNumeric()  
+  check('orgName').exists().withMessage('Organization Name already exist')
+  .notEmpty().withMessage('Organization Name is required'),
+  check('orgDescription').notEmpty().withMessage('Designation description is required')
+  .isLength({min: 6}).withMessage('Designation description minimum 6 character'),
+  check('orgId').notEmpty().withMessage('Organization is required')
+  .isNumeric().withMessage('Organization must be number')  
 ]
 }
 
 export const organizationUpdateValidator = (): ValidationChain[] => {
   return  [
-  body('orgName', 'Organization Name does not empty').exists().notEmpty(),
-  body('orgDescription','Organization description does not empty and minimum 6 character').not().isEmpty().isLength({min: 6}),
-  body('orgId','Organization does not empty and must be number').not().isEmpty().isNumeric(),
-  body('activeStatus','Active Status does not empty and must be boolean').not().isEmpty().isBoolean()  
+    check('orgName').exists().withMessage('Organization Name already exist')
+    .notEmpty().withMessage('Organization Name is required'),
+    check('orgDescription').notEmpty().withMessage('Designation description is required')
+    .isLength({min: 6}).withMessage('Designation description minimum 6 character'),
+    check('orgId').notEmpty().withMessage('Organization is required')
+    .isNumeric().withMessage('Organization must be number'),  
+    check('activeStatus').notEmpty().withMessage('Active Status is required')
+    .isBoolean().withMessage('Active Status must be boolean')  
 ]
 }
