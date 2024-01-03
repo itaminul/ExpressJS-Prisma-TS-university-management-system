@@ -1,17 +1,22 @@
-import { body, ValidationChain } from 'express-validator'
+import { check, ValidationChain } from 'express-validator'
 export const policeStationCreateValidation = (): ValidationChain[] => {
   return[
-    body('thanaName','Thana name not null').exists().isEmpty(),
-    body('thanaDes','Thana description is not null').exists().optional().isLength({ min:6}),
-    body('serialNo','Serial number must be number').isInt()
+    check('thanaName').exists().withMessage('Already exist')
+    .isEmpty().withMessage('Thana name not null'),
+    check('thanaDes').exists().withMessage('Already Exist')
+    .optional().isLength({ min:6}).withMessage('Thana description minimum 6 character'),
+    check('serialNo').isInt().withMessage('Serial number must be number')
   ]
 }
 
 export const policeStationUpdateValidation = (): ValidationChain[] => {
   return[
-    body('thanaName','Thana name not null').exists().isEmpty(),
-    body('thanaDes','Thana description is not null').exists().optional().isLength({ min:6}),
-    body('serialNo','Serial number must be number').isInt(),
-    body('activeStatus','Active status not null and is boolean').isBoolean()
+    check('thanaName').exists().withMessage('Already exist')
+    .isEmpty().withMessage('Thana name not null'),
+    check('thanaDes').exists().withMessage('Already Exist')
+    .optional().isLength({ min:6}).withMessage('Thana description minimum 6 character'),
+    check('serialNo').isInt().withMessage('Serial number must be number'),
+    check('activeStatus').isBoolean().withMessage('Active status is boolean')
+    .notEmpty().withMessage('Active status not null')
   ]
 }
