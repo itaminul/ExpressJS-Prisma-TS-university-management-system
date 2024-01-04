@@ -1,4 +1,4 @@
-import { body, check, ValidationChain } from "express-validator";
+import { check, ValidationChain } from "express-validator";
 export const designationValidator = (): ValidationChain[] => {
   return  [
   check('designationName').notEmpty().withMessage( 'Designation name is required'),
