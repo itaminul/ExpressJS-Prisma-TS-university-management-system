@@ -2,7 +2,7 @@ import { check, ValidationChain } from "express-validator";
 export const departmentValidator = (): ValidationChain[] => {
   return  [
   check('departmentName').notEmpty().withMessage('Department is required').trim(),
-  check('departmentDescription').isEmpty().withMessage('Department description is required')
+  check('departmentDescription').notEmpty().withMessage('Department description is required')
   .isLength({min: 6}).withMessage('Department description minimum 6 character'),
   check('orgId').isNumeric().withMessage('Organization must be number')
   .notEmpty().withMessage('Organization is required')

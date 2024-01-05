@@ -3,6 +3,7 @@ import { sendErrorResponse, sendSuccessResponse } from '../../middleware/respose
 import { UserService } from '../../services/userService';
 import { Jwt } from 'jsonwebtoken';
 import bcrypt  from 'bcrypt'
+import { validationResult } from 'express-validator';
 const userService = new UserService();
 export class UserController {
   getUsers = async(req: Request, res: Response, next: NextFunction) => {
@@ -15,6 +16,13 @@ export class UserController {
   }
 
   create = async(req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+         return res.status(400).json({
+        success: false,
+        errors: errors.array(),
+      });
+      }
     try {
       const {username, password, email, roleId, orgId} = req.body;
        const userExist = await userService.getUserById(username);
