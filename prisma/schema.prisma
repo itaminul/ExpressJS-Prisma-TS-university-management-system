@@ -496,3 +496,23 @@ model Board {
   updatedAt    DateTime?
   updatedBy    Int?
 }
+
+
+
+model Supplier {
+  id    Int     @id @default(autoincrement())
+  supplierName String 
+  supplierDescription  String?
+  supplierType Int //home or abroad
+  orgId        Int?
+  companyId    Int?
+  activeStatus Boolean   @default(true)
+  createdDate  String?
+  createdTime  String?
+  createdBy    Int?
+  createdAt    DateTime  @default(now())
+  updatedDate  String?
+  updatedTime  String?
+  updatedAt    DateTime?
+
+}
