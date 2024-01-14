@@ -33,13 +33,13 @@ export class SupplierSetupService {
 
    update = async(req: Request, res: Response) => {
     try {
-      const {supplierName,supplierDescription,supplierType,orgId} = req.body;
+      const {supplierName,supplierDescription,supplierType,orgId, activeStatus} = req.body;
       const results = await prisma.supplier.update({
         where: {
           id: Number(req.params.id)
         },
         data: {
-          supplierName,supplierDescription,supplierType,orgId
+          supplierName,supplierDescription,supplierType,orgId,activeStatus
         }
       })
       
